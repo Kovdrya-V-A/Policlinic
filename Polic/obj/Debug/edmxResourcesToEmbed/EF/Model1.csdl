@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="PatientView" ReturnType="Collection(Model.PatientView_Result)">
+      <Parameter Name="IdDoc" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="DiseaseHistory" EntityType="Model.DiseaseHistory" />
+    <EntitySet Name="DoctorSpeciality" EntityType="Model.DoctorSpeciality" />
+    <EntitySet Name="MedCard" EntityType="Model.MedCard" />
+    <EntitySet Name="Patient" EntityType="Model.Patient" />
+    <EntitySet Name="RecordList" EntityType="Model.RecordList" />
+    <EntitySet Name="RepiceId" EntityType="Model.RepiceId" />
+    <EntitySet Name="Role" EntityType="Model.Role" />
+    <EntitySet Name="Staff" EntityType="Model.Staff" />
+    <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagrams" />
+    <EntitySet Name="DoctorMedCardView" EntityType="Model.DoctorMedCardView" />
+    <EntitySet Name="DoctorViewRecord" EntityType="Model.DoctorViewRecord" />
+    <EntitySet Name="ViewDisease" EntityType="Model.ViewDisease" />
+    <EntitySet Name="ViewStaff" EntityType="Model.ViewStaff" />
+    <AssociationSet Name="FK_DiseaseHistory_MedCard" Association="Model.FK_DiseaseHistory_MedCard">
+      <End Role="MedCard" EntitySet="MedCard" />
+      <End Role="DiseaseHistory" EntitySet="DiseaseHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DiseaseHistory_Staff" Association="Model.FK_DiseaseHistory_Staff">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="DiseaseHistory" EntitySet="DiseaseHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_DoctorSpeciality" Association="Model.FK_Staff_DoctorSpeciality">
+      <End Role="DoctorSpeciality" EntitySet="DoctorSpeciality" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MedCard_Patient" Association="Model.FK_MedCard_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="MedCard" EntitySet="MedCard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepiceId_MedCard" Association="Model.FK_RepiceId_MedCard">
+      <End Role="MedCard" EntitySet="MedCard" />
+      <End Role="RepiceId" EntitySet="RepiceId" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecordList_Patient" Association="Model.FK_RecordList_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="RecordList" EntitySet="RecordList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecordList_User" Association="Model.FK_RecordList_User">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="RecordList" EntitySet="RecordList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Model.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="PatientView_Result">
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="MidleName" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="DateTime" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="DiseaseHistory">
+    <Key>
+      <PropertyRef Name="IdDisease" />
+    </Key>
+    <Property Name="IdDisease" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartTime" Type="DateTime" Precision="0" />
+    <Property Name="EndTime" Type="DateTime" Precision="0" />
+    <Property Name="Complaints" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="JointInspection" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MainDiagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Therapy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IdDoctor" Type="Int32" />
+    <Property Name="IdMedCard" Type="Int32" />
+    <NavigationProperty Name="MedCard" Relationship="Model.FK_DiseaseHistory_MedCard" FromRole="DiseaseHistory" ToRole="MedCard" />
+    <NavigationProperty Name="Staff" Relationship="Model.FK_DiseaseHistory_Staff" FromRole="DiseaseHistory" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="DoctorSpeciality">
+    <Key>
+      <PropertyRef Name="IdSpeciality" />
+    </Key>
+    <Property Name="IdSpeciality" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameSpeciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Staff" Relationship="Model.FK_Staff_DoctorSpeciality" FromRole="DoctorSpeciality" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="MedCard">
+    <Key>
+      <PropertyRef Name="IdCard" />
+    </Key>
+    <Property Name="IdCard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumPolis" Type="Int32" Nullable="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DiseaseHistory" Relationship="Model.FK_DiseaseHistory_MedCard" FromRole="MedCard" ToRole="DiseaseHistory" />
+    <NavigationProperty Name="Patient" Relationship="Model.FK_MedCard_Patient" FromRole="MedCard" ToRole="Patient" />
+    <NavigationProperty Name="RepiceId" Relationship="Model.FK_RepiceId_MedCard" FromRole="MedCard" ToRole="RepiceId" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MidleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MedCardId" Type="Int32" Nullable="false" />
+    <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="PolisId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MedCard" Relationship="Model.FK_MedCard_Patient" FromRole="Patient" ToRole="MedCard" />
+    <NavigationProperty Name="RecordList" Relationship="Model.FK_RecordList_Patient" FromRole="Patient" ToRole="RecordList" />
+  </EntityType>
+  <EntityType Name="RecordList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="DoctorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Patient" Relationship="Model.FK_RecordList_Patient" FromRole="RecordList" ToRole="Patient" />
+    <NavigationProperty Name="Staff" Relationship="Model.FK_RecordList_User" FromRole="RecordList" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="RepiceId">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PreparationName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="DateStart" Type="DateTime" Precision="0" />
+    <Property Name="DateEnd" Type="DateTime" Precision="0" />
+    <Property Name="MedCardId" Type="Int32" />
+    <NavigationProperty Name="MedCard" Relationship="Model.FK_RepiceId_MedCard" FromRole="RepiceId" ToRole="MedCard" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameRole" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Staff" Relationship="Model.FK_User_Role" FromRole="Role" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MidleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CabNumber" Type="Int32" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdSpeciality" Type="Int32" />
+    <NavigationProperty Name="DiseaseHistory" Relationship="Model.FK_DiseaseHistory_Staff" FromRole="Staff" ToRole="DiseaseHistory" />
+    <NavigationProperty Name="DoctorSpeciality" Relationship="Model.FK_Staff_DoctorSpeciality" FromRole="Staff" ToRole="DoctorSpeciality" />
+    <NavigationProperty Name="RecordList" Relationship="Model.FK_RecordList_User" FromRole="Staff" ToRole="RecordList" />
+    <NavigationProperty Name="Role1" Relationship="Model.FK_User_Role" FromRole="Staff" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="DoctorMedCardView">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="EndTime" Type="DateTime" Precision="0" />
+    <Property Name="StartTime" Type="DateTime" Precision="0" />
+    <Property Name="MainDiagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DoctorViewRecord">
+    <Key>
+      <PropertyRef Name="DateTime" />
+      <PropertyRef Name="DoctorId" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="MedCardId" />
+    </Key>
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DoctorId" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MidleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="MedCardId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViewDisease">
+    <Key>
+      <PropertyRef Name="IdDisease" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="FirstName" />
+    </Key>
+    <Property Name="StartTime" Type="DateTime" Precision="0" />
+    <Property Name="EndTime" Type="DateTime" Precision="0" />
+    <Property Name="Complaints" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="JointInspection" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MainDiagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Therapy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IdMedCard" Type="Int32" />
+    <Property Name="IdDisease" Type="Int32" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MidleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ViewStaff">
+    <Key>
+      <PropertyRef Name="NameRole" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="BirthDay" />
+      <PropertyRef Name="Login" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Role" />
+    </Key>
+    <Property Name="NameRole" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NameSpeciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MidleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CabNumber" Type="Int32" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <Property Name="IdSpeciality" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_DiseaseHistory_MedCard">
+    <End Type="Model.MedCard" Role="MedCard" Multiplicity="0..1" />
+    <End Type="Model.DiseaseHistory" Role="DiseaseHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedCard">
+        <PropertyRef Name="IdCard" />
+      </Principal>
+      <Dependent Role="DiseaseHistory">
+        <PropertyRef Name="IdMedCard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DiseaseHistory_Staff">
+    <End Type="Model.Staff" Role="Staff" Multiplicity="0..1" />
+    <End Type="Model.DiseaseHistory" Role="DiseaseHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DiseaseHistory">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Staff_DoctorSpeciality">
+    <End Type="Model.DoctorSpeciality" Role="DoctorSpeciality" Multiplicity="0..1" />
+    <End Type="Model.Staff" Role="Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DoctorSpeciality">
+        <PropertyRef Name="IdSpeciality" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="IdSpeciality" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MedCard_Patient">
+    <End Type="Model.Patient" Role="Patient" Multiplicity="1" />
+    <End Type="Model.MedCard" Role="MedCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MedCard">
+        <PropertyRef Name="NumPolis" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepiceId_MedCard">
+    <End Type="Model.MedCard" Role="MedCard" Multiplicity="0..1" />
+    <End Type="Model.RepiceId" Role="RepiceId" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedCard">
+        <PropertyRef Name="IdCard" />
+      </Principal>
+      <Dependent Role="RepiceId">
+        <PropertyRef Name="MedCardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecordList_Patient">
+    <End Type="Model.Patient" Role="Patient" Multiplicity="1" />
+    <End Type="Model.RecordList" Role="RecordList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecordList">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecordList_User">
+    <End Type="Model.Staff" Role="Staff" Multiplicity="1" />
+    <End Type="Model.RecordList" Role="RecordList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecordList">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Type="Model.Role" Role="Role" Multiplicity="1" />
+    <End Type="Model.Staff" Role="Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

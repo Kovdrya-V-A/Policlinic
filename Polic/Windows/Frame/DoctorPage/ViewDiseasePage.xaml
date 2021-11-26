@@ -1,0 +1,42 @@
+﻿<Page x:Class="Polic.Windows.Frame.DoctorPage.ViewDiseasePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Polic.Windows.Frame.DoctorPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ViewDisease">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock Text="   Обслужиивал врач: " VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock x:Name="nameDoctor" Text="ФИО" VerticalAlignment="Center" FontSize="16"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBlock/>
+            <TextBlock Text="   Жалобы: " FontSize="16"/>
+            <TextBlock Text="11111" Height="Auto" Width="Auto" x:Name="name1"/>
+            <TextBlock/>
+            <TextBlock Text="   Общий осмотр:" FontSize="16"/>
+            <TextBlock Text="11111" Height="Auto" Width="Auto" x:Name="name2"/>
+            <TextBlock/>
+            <TextBlock Text="   Основной диагноз:" FontSize="16"/>
+            <TextBlock Text="11111" Height="Auto" Width="Auto" x:Name="name3"/>
+            <TextBlock/>
+            <TextBlock Text="   Назначенное лечение:" FontSize="16"/>
+            <TextBlock Text="11111" Height="Auto" Width="Auto" x:Name="name4"/>
+        </StackPanel>
+    </Grid>
+</Page>

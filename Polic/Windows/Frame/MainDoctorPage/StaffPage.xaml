@@ -1,0 +1,28 @@
+﻿<Page x:Class="Polic.Windows.Frame.MainDoctorPage.StaffPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Polic.Windows.Frame.MainDoctorPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StaffPage">
+
+    <Grid>
+        <!--<Viewbox Stretch="Fill">-->
+            <ListView Language="ru-RU" x:Name="listView" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Top" Width="Auto" Grid.Column="1" Grid.Row="1" SelectionChanged="listView_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Фамилия" Width="150" DisplayMemberBinding="{Binding FirstName}" x:Name="lvPatientF"/>
+                        <GridViewColumn Header="Имя" Width="150" DisplayMemberBinding="{Binding LastName}" x:Name="lvPatientL"/>
+                        <GridViewColumn Header="Отчество" Width="150" DisplayMemberBinding="{Binding MidleName}" x:Name="lvPatientM"/>
+                        <GridViewColumn Header="Дата рождения" Width="100" DisplayMemberBinding="{Binding BirthDay, StringFormat=dd.MM.yyyy}" x:Name="lvBirthDay"/>
+                        <GridViewColumn Header="Роль" Width="150" DisplayMemberBinding="{Binding NameRole}" x:Name="lvRole"/>
+                        <GridViewColumn Header="Специальность" Width="150" DisplayMemberBinding="{Binding NameSpeciality}" x:Name="lvSpeciality"/>
+                        <GridViewColumn Header="Кабинет" Width="50" DisplayMemberBinding="{Binding CabNumber}" x:Name="lvCab"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        <!--</Viewbox>-->
+    </Grid>
+</Page>

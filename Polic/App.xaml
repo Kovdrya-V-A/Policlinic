@@ -1,0 +1,29 @@
+﻿<Application x:Class="Polic.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Polic"
+             StartupUri="Windows/AuthWindow.xaml">
+    <Application.Resources>
+        <!--<local:Converter x:Key="DateConverter"/>-->
+        
+        <Style TargetType="TextBlock" x:Key="tbStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="tboxStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="20"/>
+            <!--<Setter Property="Margin" Value="20"/>-->
+            <Setter Property="BorderBrush" Value="#00adc6"/>
+        </Style>
+
+        <Style TargetType="StackPanel" x:Key="stckPnlStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+    </Application.Resources>
+</Application>

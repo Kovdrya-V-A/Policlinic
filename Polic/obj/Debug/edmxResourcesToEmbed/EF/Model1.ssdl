@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DiseaseHistory">
+    <Key>
+      <PropertyRef Name="IdDisease" />
+    </Key>
+    <Property Name="IdDisease" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="date" />
+    <Property Name="EndTime" Type="date" />
+    <Property Name="Complaints" Type="nvarchar" MaxLength="500" />
+    <Property Name="JointInspection" Type="nvarchar" MaxLength="500" />
+    <Property Name="MainDiagnosis" Type="nvarchar" MaxLength="500" />
+    <Property Name="Therapy" Type="nvarchar" MaxLength="500" />
+    <Property Name="IdDoctor" Type="int" />
+    <Property Name="IdMedCard" Type="int" />
+  </EntityType>
+  <EntityType Name="DoctorSpeciality">
+    <Key>
+      <PropertyRef Name="IdSpeciality" />
+    </Key>
+    <Property Name="IdSpeciality" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameSpeciality" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MedCard">
+    <Key>
+      <PropertyRef Name="IdCard" />
+    </Key>
+    <Property Name="IdCard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumPolis" Type="int" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MidleName" Type="nvarchar" MaxLength="30" />
+    <Property Name="MedCardId" Type="int" Nullable="false" />
+    <Property Name="BirthDay" Type="date" Nullable="false" />
+    <Property Name="PolisId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecordList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="DoctorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RepiceId">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PreparationName" Type="nvarchar" MaxLength="150" />
+    <Property Name="DateStart" Type="date" />
+    <Property Name="DateEnd" Type="date" />
+    <Property Name="MedCardId" Type="int" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameRole" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MidleName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Role" Type="int" Nullable="false" />
+    <Property Name="BirthDay" Type="date" Nullable="false" />
+    <Property Name="CabNumber" Type="int" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdSpeciality" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Polic.dbo.DoctorMedCardView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="DoctorMedCardView">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="EndTime" Type="date" />
+    <Property Name="StartTime" Type="date" />
+    <Property Name="MainDiagnosis" Type="nvarchar" MaxLength="500" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Polic.dbo.DoctorViewRecord" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="DoctorViewRecord">
+    <Key>
+      <PropertyRef Name="DateTime" />
+      <PropertyRef Name="DoctorId" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="MedCardId" />
+    </Key>
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="DoctorId" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MidleName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="MedCardId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Polic.dbo.ViewDisease" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="ViewDisease">
+    <Key>
+      <PropertyRef Name="IdDisease" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="FirstName" />
+    </Key>
+    <Property Name="StartTime" Type="date" />
+    <Property Name="EndTime" Type="date" />
+    <Property Name="Complaints" Type="nvarchar" MaxLength="500" />
+    <Property Name="JointInspection" Type="nvarchar" MaxLength="500" />
+    <Property Name="MainDiagnosis" Type="nvarchar" MaxLength="500" />
+    <Property Name="Therapy" Type="nvarchar" MaxLength="500" />
+    <Property Name="IdMedCard" Type="int" />
+    <Property Name="IdDisease" Type="int" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MidleName" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Polic.dbo.ViewStaff" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="ViewStaff">
+    <Key>
+      <PropertyRef Name="NameRole" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="BirthDay" />
+      <PropertyRef Name="Login" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Role" />
+    </Key>
+    <Property Name="NameRole" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="NameSpeciality" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MidleName" Type="nvarchar" MaxLength="30" />
+    <Property Name="BirthDay" Type="date" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CabNumber" Type="int" />
+    <Property Name="Role" Type="int" Nullable="false" />
+    <Property Name="IdSpeciality" Type="int" />
+  </EntityType>
+  <Association Name="FK_DiseaseHistory_MedCard">
+    <End Role="MedCard" Type="Self.MedCard" Multiplicity="0..1" />
+    <End Role="DiseaseHistory" Type="Self.DiseaseHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedCard">
+        <PropertyRef Name="IdCard" />
+      </Principal>
+      <Dependent Role="DiseaseHistory">
+        <PropertyRef Name="IdMedCard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DiseaseHistory_Staff">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="DiseaseHistory" Type="Self.DiseaseHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DiseaseHistory">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MedCard_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="MedCard" Type="Self.MedCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MedCard">
+        <PropertyRef Name="NumPolis" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecordList_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="RecordList" Type="Self.RecordList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecordList">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecordList_User">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+    <End Role="RecordList" Type="Self.RecordList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecordList">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepiceId_MedCard">
+    <End Role="MedCard" Type="Self.MedCard" Multiplicity="0..1" />
+    <End Role="RepiceId" Type="Self.RepiceId" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedCard">
+        <PropertyRef Name="IdCard" />
+      </Principal>
+      <Dependent Role="RepiceId">
+        <PropertyRef Name="MedCardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Staff_DoctorSpeciality">
+    <End Role="DoctorSpeciality" Type="Self.DoctorSpeciality" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DoctorSpeciality">
+        <PropertyRef Name="IdSpeciality" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="IdSpeciality" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="PatientView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdDoc" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище ModelContainer">
+    <EntitySet Name="DiseaseHistory" EntityType="Self.DiseaseHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorSpeciality" EntityType="Self.DoctorSpeciality" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MedCard" EntityType="Self.MedCard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecordList" EntityType="Self.RecordList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepiceId" EntityType="Self.RepiceId" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorMedCardView" EntityType="Self.DoctorMedCardView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DoctorMedCardView].[EndTime] AS [EndTime], 
+    [DoctorMedCardView].[StartTime] AS [StartTime], 
+    [DoctorMedCardView].[MainDiagnosis] AS [MainDiagnosis], 
+    [DoctorMedCardView].[Id] AS [Id]
+    FROM [dbo].[DoctorMedCardView] AS [DoctorMedCardView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DoctorViewRecord" EntityType="Self.DoctorViewRecord" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DoctorViewRecord].[DateTime] AS [DateTime], 
+    [DoctorViewRecord].[DoctorId] AS [DoctorId], 
+    [DoctorViewRecord].[FirstName] AS [FirstName], 
+    [DoctorViewRecord].[LastName] AS [LastName], 
+    [DoctorViewRecord].[MidleName] AS [MidleName], 
+    [DoctorViewRecord].[Id] AS [Id], 
+    [DoctorViewRecord].[MedCardId] AS [MedCardId]
+    FROM [dbo].[DoctorViewRecord] AS [DoctorViewRecord]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewDisease" EntityType="Self.ViewDisease" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewDisease].[StartTime] AS [StartTime], 
+    [ViewDisease].[EndTime] AS [EndTime], 
+    [ViewDisease].[Complaints] AS [Complaints], 
+    [ViewDisease].[JointInspection] AS [JointInspection], 
+    [ViewDisease].[MainDiagnosis] AS [MainDiagnosis], 
+    [ViewDisease].[Therapy] AS [Therapy], 
+    [ViewDisease].[IdMedCard] AS [IdMedCard], 
+    [ViewDisease].[IdDisease] AS [IdDisease], 
+    [ViewDisease].[LastName] AS [LastName], 
+    [ViewDisease].[FirstName] AS [FirstName], 
+    [ViewDisease].[MidleName] AS [MidleName]
+    FROM [dbo].[ViewDisease] AS [ViewDisease]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewStaff" EntityType="Self.ViewStaff" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewStaff].[NameRole] AS [NameRole], 
+    [ViewStaff].[NameSpeciality] AS [NameSpeciality], 
+    [ViewStaff].[FirstName] AS [FirstName], 
+    [ViewStaff].[LastName] AS [LastName], 
+    [ViewStaff].[MidleName] AS [MidleName], 
+    [ViewStaff].[BirthDay] AS [BirthDay], 
+    [ViewStaff].[Login] AS [Login], 
+    [ViewStaff].[Password] AS [Password], 
+    [ViewStaff].[Id] AS [Id], 
+    [ViewStaff].[CabNumber] AS [CabNumber], 
+    [ViewStaff].[Role] AS [Role], 
+    [ViewStaff].[IdSpeciality] AS [IdSpeciality]
+    FROM [dbo].[ViewStaff] AS [ViewStaff]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_DiseaseHistory_MedCard" Association="Self.FK_DiseaseHistory_MedCard">
+      <End Role="MedCard" EntitySet="MedCard" />
+      <End Role="DiseaseHistory" EntitySet="DiseaseHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DiseaseHistory_Staff" Association="Self.FK_DiseaseHistory_Staff">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="DiseaseHistory" EntitySet="DiseaseHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MedCard_Patient" Association="Self.FK_MedCard_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="MedCard" EntitySet="MedCard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecordList_Patient" Association="Self.FK_RecordList_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="RecordList" EntitySet="RecordList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecordList_User" Association="Self.FK_RecordList_User">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="RecordList" EntitySet="RecordList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepiceId_MedCard" Association="Self.FK_RepiceId_MedCard">
+      <End Role="MedCard" EntitySet="MedCard" />
+      <End Role="RepiceId" EntitySet="RepiceId" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_DoctorSpeciality" Association="Self.FK_Staff_DoctorSpeciality">
+      <End Role="DoctorSpeciality" EntitySet="DoctorSpeciality" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
